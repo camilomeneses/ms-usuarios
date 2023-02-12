@@ -1,0 +1,22 @@
+
+spring:
+  application:
+    name: ms-usuarios
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/ms-usuarios
+    username: 'camilomeneses'
+    password: '@cam123lo_pass'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: true
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+
+server:
+  port: 8001
+
