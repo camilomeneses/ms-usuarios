@@ -14,8 +14,4 @@ public interface UsuarioService {
   Optional<Usuario> porEmail(String email);
   boolean existePorEmail(String email);
 
-  // Para comunicacion Feign con ms-cursos
-  Optional<Usuario> asignarUsuario(Usuario usuario,Long cursoId);
-  Optional<Usuario> crearUsuario(Usuario usuario, Long cursoId);
-  Optional<Usuario> desasignarUsuario(Usuario usuario, Long cursoId);
 }
