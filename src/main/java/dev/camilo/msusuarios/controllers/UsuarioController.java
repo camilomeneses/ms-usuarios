@@ -19,9 +19,9 @@ public class UsuarioController {
   private final UsuarioService service;
 
   @GetMapping
-  public List <Usuario> listar() {
+  public Map< String, List <Usuario> >  listar() {
 
-    return service.listar();
+    return Collections.singletonMap( "usuarios", service.listar());
   }
 
   @GetMapping( "/{id}" )
