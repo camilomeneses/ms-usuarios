@@ -10,5 +10,5 @@ COPY ./target/ms-usuarios-0.0.1-SNAPSHOT.jar .
 ## Puerto donde se va a ejecutar nuestra app
 EXPOSE 8001
 
-## Punto de entrada para ejecucion
+## Punto de entrada para ejecucion esta capa es del contenedor
 ENTRYPOINT ["java","-jar","ms-usuarios-0.0.1-SNAPSHOT.jar"]
