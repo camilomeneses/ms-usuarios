@@ -1,8 +1,9 @@
 package dev.camilo.msusuarios.services;
 
+import dev.camilo.msusuarios.client.CursoClientRest;
 import dev.camilo.msusuarios.models.entities.Usuario;
 import dev.camilo.msusuarios.repositories.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,10 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService{
 
-  @Autowired
-  private UsuarioRepository repository;
+  private final UsuarioRepository repository;
+
+  private final CursoClientRest cursoClient;
 
   @Override
   @Transactional(readOnly = true)
@@ -37,6 +40,7 @@ public class UsuarioServiceImpl implements UsuarioService{
   @Transactional
   public void eliminar( Long id ) {
     repository.deleteById( id );
+    cursoClient.desasignarCursoUsuarioPorId( id );
   }
 
   @Override
