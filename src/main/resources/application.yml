@@ -4,7 +4,7 @@ spring:
     name: ms-usuarios
 
   datasource:
-    url: jdbc:mysql://host.docker.internal:3306/ms-usuarios?serverTimezone=America/Bogota&allowPublicKeyRetrieval=false
+    url: jdbc:mysql://mysql8:3306/ms-usuarios?serverTimezone=America/Bogota&allowPublicKeyRetrieval=false
     username: 'camilomeneses'
     password: '@cam123lo_pass'
     driver-class-name: com.mysql.cj.jdbc.Driver
