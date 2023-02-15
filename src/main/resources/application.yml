@@ -19,6 +19,10 @@ logging:
       hibernate:
         SQL: debug
 
+  ## Guardar los logs en el contenedor docker
+  file:
+    path: /app/logs
+
 server:
   port: 8001
 

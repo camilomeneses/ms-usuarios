@@ -27,6 +27,9 @@ FROM eclipse-temurin:17.0.5_8-jdk-alpine
 
 WORKDIR /app
 
+## Creamos la carpeta para guardar los logs de spring
+RUN mkdir ./logs
+
 ## Copiamos el jar de la construccion anterior
 COPY --from=builder /app/ms-usuarios/target/ms-usuarios-0.0.1-SNAPSHOT.jar .
 
@@ -34,4 +37,8 @@ COPY --from=builder /app/ms-usuarios/target/ms-usuarios-0.0.1-SNAPSHOT.jar .
 EXPOSE 8001
 
 ## Punto de entrada para ejecucion esta capa es del contenedor
-ENTRYPOINT ["java","-jar","ms-usuarios-0.0.1-SNAPSHOT.jar"]
+## ENTRYPOINT es mas seguro dado que no permite entrar a la linea de comandos
+# ENTRYPOINT ["java","-jar","ms-usuarios-0.0.1-SNAPSHOT.jar"]
+
+## CMD permite entrar a la bash y navegar en la maquina virtual del contenedor
+CMD ["java","-jar","ms-usuarios-0.0.1-SNAPSHOT.jar"]
