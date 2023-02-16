@@ -1,21 +1,27 @@
+## Argumentos globales
+ARG MS_NAME=ms-usuarios
+
 ## Imagen linux amd64 con eclipse-temurin 17.0.5
 FROM eclipse-temurin:17.0.5_8-jdk-alpine as builder
 
+#Argumentos de construccion de imagen
+ARG MS_NAME
+
 ## Carpeta dentro de la imagen
-WORKDIR /app/ms-usuarios
+WORKDIR /app/$MS_NAME
 
 ## Copiamos archivos necesarios para empaquetado como librerias, pom, mvn y mvnw
 COPY ./pom.xml /app
-COPY ./ms-usuarios/.mvn ./.mvn
-COPY ./ms-usuarios/mvnw .
-COPY ./ms-usuarios/pom.xml .
+COPY ./$MS_NAME/.mvn ./.mvn
+COPY ./$MS_NAME/mvnw .
+COPY ./$MS_NAME/pom.xml .
 
 ## Ejecutar empaquetado proyecto pero sin codigo funte y test y borramos target
 RUN ./mvnw clean package -Dmaven.test.skip -Dmaven.main.skip -Dspring-boot.repackage.skip && rm -r ./target/
 # RUN ./mvnw dependency:go-offline
 
 # Copiamos todo el codigo fuente del proyecto
-COPY ./ms-usuarios/src ./src
+COPY ./$MS_NAME/src ./src
 
 ## Ejecutar empaquetado saltandose el test
 RUN ./mvnw clean package -DskipTests
@@ -30,13 +36,21 @@ WORKDIR /app
 ## Creamos la carpeta para guardar los logs de spring
 RUN mkdir ./logs
 
+## Argumentos de construccion
+ARG MS_NAME
+ARG TARGET_FOLDER=/app/$MS_NAME/target
+ARG PORT_APP=8001
+
 ## Copiamos el jar de la construccion anterior
-COPY --from=builder /app/ms-usuarios/target/ms-usuarios-0.0.1-SNAPSHOT.jar .
+COPY --from=builder $TARGET_FOLDER/ms-usuarios-0.0.1-SNAPSHOT.jar .
+
+## Variables de ambiente
+ENV PORT $PORT_APP
 
 ## Puerto donde se va a ejecutar nuestra app
-EXPOSE 8001
+EXPOSE $PORT
 
-## Punto de entrada para ejecucion esta capa es del contenedor
+## Punto de entrada para ejecucion esta capa es del contenedor docker RUN
 ## ENTRYPOINT es mas seguro dado que no permite entrar a la linea de comandos
 # ENTRYPOINT ["java","-jar","ms-usuarios-0.0.1-SNAPSHOT.jar"]
 

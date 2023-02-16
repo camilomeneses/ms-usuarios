@@ -1,18 +1,20 @@
 
 spring:
+
   application:
-    name: ms-usuarios
+    name: ${APP_NAME:ms-usuarios}
 
   datasource:
-    url: jdbc:mysql://mysql8:3306/ms-usuarios?serverTimezone=America/Bogota&allowPublicKeyRetrieval=false
-    username: 'camilomeneses'
-    password: '@cam123lo_pass'
+    url: jdbc:mysql://${DB_HOST:mysql8:3306}/${DB_DATABASE:ms-usuarios}?serverTimezone=America/Bogota&allowPublicKeyRetrieval=false
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:password}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     generate-ddl: true
 
+## mostrar ejecucion de HPQL en consola
 logging:
   level:
     org:
@@ -24,5 +26,9 @@ logging:
     path: /app/logs
 
 server:
-  port: 8001
+  port: ${PORT:8001}
 
+## Variables de ambiente app
+ms:
+  cursos:
+    url: ${CURSOS_URL:ms-cursos:8002}
