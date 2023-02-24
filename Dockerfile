@@ -55,4 +55,5 @@ EXPOSE $PORT
 # ENTRYPOINT ["java","-jar","ms-usuarios-0.0.1-SNAPSHOT.jar"]
 
 ## CMD permite entrar a la bash y navegar en la maquina virtual del contenedor
+# CMD sleep 20 && java - jar ms-usuarios-0.0.1-SNAPSHOT.jar -> necesario para sincronizacion en AWS-ECS
 CMD ["java","-jar","ms-usuarios-0.0.1-SNAPSHOT.jar"]
