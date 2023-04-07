@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -22,15 +23,22 @@ public class UsuarioController {
 
   private final ApplicationContext context;
 
+  private final Environment env;
+
   @GetMapping("/crash")
   public void crash(){
     ((ConfigurableApplicationContext)context).close();
   }
 
   @GetMapping
-  public Map< String, List <Usuario> >  listar() {
+  public ResponseEntity <?>  listar() {
 
-    return Collections.singletonMap( "users", service.listar());
+    Map<String,Object> body = new HashMap<>();
+    body.put("users", service.listar());
+    body.put("pod_info", env.getProperty("MY_POD_NAME") + ": " + env.getProperty("MY_POD_IP"));
+
+    /*return Collections.singletonMap( "users", service.listar());*/
+    return ResponseEntity.ok( body );
   }
 
   @GetMapping( "/{id}" )
