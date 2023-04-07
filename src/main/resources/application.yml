@@ -1,18 +1,29 @@
 
 spring:
-
+  ## app name
   application:
     name: ${APP_NAME:ms-usuarios}
 
+  ## app datasource config
   datasource:
     url: jdbc:mysql://${DB_HOST:mysql8:3306}/${DB_DATABASE:ms-usuarios}?serverTimezone=America/Bogota&allowPublicKeyRetrieval=false
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:password}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  ## app hibernate config
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     generate-ddl: true
+
+  ## spring cloud kubernetes config
+  cloud:
+    kubernetes:
+      secrets:
+        enable-api: true
+      discovery:
+        all-namespaces: true
+
 
 ## mostrar ejecucion de HPQL en consola
 logging:
@@ -25,10 +36,11 @@ logging:
   file:
     path: /app/logs
 
+## server port config
 server:
   port: ${PORT:8001}
 
 ## Variables de ambiente app
 ms:
   cursos:
-    url: ${CURSOS_URL:ms-cursos:8002}
+    url: ${CURSOS_URL:ms-cursos}
