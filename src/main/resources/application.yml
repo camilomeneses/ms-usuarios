@@ -28,6 +28,22 @@ spring:
   profiles:
     active: ${PROFILE:dev}
 
+## actuator config
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
 
 ## mostrar ejecucion de HPQL en consola
 logging:
