@@ -24,6 +24,10 @@ spring:
       discovery:
         all-namespaces: true
 
+  ## profiles config
+  profiles:
+    active: ${PROFILE:dev}
+
 
 ## mostrar ejecucion de HPQL en consola
 logging:
