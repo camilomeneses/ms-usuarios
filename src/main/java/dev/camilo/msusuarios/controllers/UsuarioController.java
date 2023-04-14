@@ -25,6 +25,11 @@ public class UsuarioController {
 
   private final Environment env;
 
+  @GetMapping("/authorized")
+  public Map<String, Object> authorized(@RequestParam String code){
+    return Collections.singletonMap("code", code);
+  }
+
   @GetMapping("/crash")
   public void crash(){
     ((ConfigurableApplicationContext)context).close();

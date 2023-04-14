@@ -24,6 +24,24 @@ spring:
       discovery:
         all-namespaces: true
 
+  ## oauth config
+  security:
+    oauth2:
+      client:
+        registration:
+          ms-usuarios-client:
+            provider: spring
+            client-id: usuarios-client
+            client-secret: password
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://127.0.0.1:8081/authorized"
+            scope:
+              - read
+            client-name: ms-usuarios-client
+        provider:
+          spring:
+            issuer-uri: http://127.0.0.1:9000
+
   ## profiles config
   profiles:
     active: ${PROFILE:dev}
