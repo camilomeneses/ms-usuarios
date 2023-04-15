@@ -27,6 +27,11 @@ spring:
   ## oauth config
   security:
     oauth2:
+      ## resource server config
+      resourceserver:
+        jwt:
+          issuer-uri: http://127.0.0.1:9000
+      ## client config
       client:
         registration:
           ms-usuarios-client:
