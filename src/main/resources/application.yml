@@ -30,7 +30,7 @@ spring:
       ## resource server config
       resourceserver:
         jwt:
-          issuer-uri: http://127.0.0.1:9000
+          issuer-uri: ${LB_AUTH_ISSUER_URI:http://127.0.0.1:9000}
       ## client config
       client:
         registration:
@@ -39,13 +39,13 @@ spring:
             client-id: usuarios-client
             client-secret: password
             authorization-grant-type: authorization_code
-            redirect-uri: "http://127.0.0.1:8081/authorized"
+            redirect-uri: ${LB_USUARIOS_URI:http://127.0.0.1:8081/authorized}
             scope:
               - read
             client-name: ms-usuarios-client
         provider:
           spring:
-            issuer-uri: http://127.0.0.1:9000
+            issuer-uri: ${LB_AUTH_ISSUER_URI:http://127.0.0.1:9000}
 
   ## profiles config
   profiles:
